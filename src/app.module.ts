@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
 import { InventoryModule } from './inventory/inventory.module.js';
@@ -11,7 +12,17 @@ import { FavoritesModule } from './favorites/favorites.module.js';
 import { PaymentsModule } from './payments/payments.module.js';
 
 @Module({
-  imports: [InventoryModule, AuthModule, CartModule, OrdersModule, ReviewsModule, SupportModule, FavoritesModule, PaymentsModule],
+  imports: [
+    MongooseModule.forRoot(process.env.MONGO_URI || ''),
+    InventoryModule,
+    AuthModule,
+    CartModule,
+    OrdersModule,
+    ReviewsModule,
+    SupportModule,
+    FavoritesModule,
+    PaymentsModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
